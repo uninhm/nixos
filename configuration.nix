@@ -15,7 +15,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos";
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Enables wireless support via wpa_supplicant.
+  # I don't enable it because I use NetworkManager.
+  # (NetworkManager is enabled by GNOME.)
+  # networking.wireless.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Buenos_Aires";
@@ -41,7 +45,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  
+
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -63,12 +67,17 @@
     shell = pkgs.fish;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
     wget
     firefox
+  ];
+
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-cjk
+    jetbrains-mono
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
